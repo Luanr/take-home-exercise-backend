@@ -63,7 +63,13 @@ const resolvers = {
     }
   },
   Ticket: {},
-  Mutation: {}
+  Mutation: {
+    createTicket: async (root, args, context) => {
+      return models.Ticket.create(
+        args
+      );
+    },
+  }
 };
 
 const server = new ApolloServer({
