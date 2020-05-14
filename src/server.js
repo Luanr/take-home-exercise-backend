@@ -68,7 +68,8 @@ const resolvers = {
     ticket: async (root, args, context) => {
       let childrenOption = {
         include: [{ 
-          all: true
+          all: true, 
+          nested: true 
       }]};
       return models.Ticket.findByPk(args.id,childrenOption);
     }
@@ -83,6 +84,16 @@ const resolvers = {
     updateTicket: async (root, args, context) => {
       let value = {
         title: args.title
+      };
+      let condition = {
+        where: {id: args.id}
+      };
+      await models.Ticket.update(value,condition);
+      return models.Ticket.findByPk(args.id);
+    },
+    toggleTicket: async (root, args, context) => {
+      let value = {
+        isCompleted: args.isCompleted
       };
       let condition = {
         where: {id: args.id}
