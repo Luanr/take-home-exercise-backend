@@ -66,7 +66,11 @@ const resolvers = {
       });
     },
     ticket: async (root, args, context) => {
-      return models.Ticket.findByPk(args.id);
+      let childrenOption = {
+        include: [{ 
+          all: true
+      }]};
+      return models.Ticket.findByPk(args.id,childrenOption);
     }
   },
   Ticket: {},
