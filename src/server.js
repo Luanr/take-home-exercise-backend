@@ -62,7 +62,7 @@ const resolvers = {
       });
     },
     ticket: async (root, args, context) => {
-      return models.Ticket.findByPk(args['id']);
+      return models.Ticket.findByPk(args.id);
     }
   },
   Ticket: {},
@@ -72,6 +72,16 @@ const resolvers = {
         args
       );
     },
+    updateTicket: async (root, args, context) => {
+      let value = {
+        title: args.title
+      };
+      let condition = {
+        where: {id: args.id}
+      };
+      await models.Ticket.update(value,condition);
+      return models.Ticket.findByPk(args.id);
+    }
   }
 };
 
