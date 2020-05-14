@@ -6,7 +6,7 @@ const PORT = 4001;
 
 const typeDefs = gql`
   type Ticket {
-    id: ID
+    id: ID!
     title: String!
     isCompleted: Boolean!
     children: [Ticket]!
