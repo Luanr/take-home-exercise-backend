@@ -58,7 +58,11 @@ const resolvers = {
       return models.Ticket.findAll({
         where: {
           parentId: null
-        }
+        },
+        include: [{ 
+          all: true, 
+          nested: true 
+        }]
       });
     },
     ticket: async (root, args, context) => {
