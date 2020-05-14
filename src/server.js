@@ -6,7 +6,7 @@ const PORT = 4001;
 
 const typeDefs = gql`
   type Ticket {
-    id: ID!
+    id: ID
     title: String!
     isCompleted: Boolean!
     children: [Ticket]!
@@ -60,6 +60,9 @@ const resolvers = {
           parentId: null
         }
       });
+    },
+    ticket: async (root, args, context) => {
+      return models.Ticket.findByPk(args['id']);
     }
   },
   Ticket: {},
