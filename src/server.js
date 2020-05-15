@@ -129,6 +129,24 @@ const resolvers = {
           nested: true 
       }]};
       return models.Ticket.findByPk(args.parentId,childrenOption);
+    },
+    setParentOfTicket: async (root, args, context) => {
+      let value = {
+        parentId: args.parentId
+      };
+
+      let condition = {
+        where: {id: args.childId}
+      };
+      
+      await models.Ticket.update(value,condition);
+
+      let childrenOption = {
+        include: [{ 
+          all: true, 
+          nested: true 
+      }]};
+      return models.Ticket.findByPk(args.parentId,childrenOption);
     }
   }
 };
