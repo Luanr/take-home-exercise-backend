@@ -1,0 +1,113 @@
+query Ticket {
+  ticket(id:2){
+    id
+    title
+    isCompleted
+    children{
+      title
+    }
+  }
+}
+___
+query Tickets {
+  tickets {
+    id
+    title
+    children{
+      id
+      title
+    }
+  }
+}
+___
+mutation CreateTicket($title: String!, $isCompleted: Boolean) {
+  createTicket(title: $title, isCompleted: $isCompleted){
+    title
+    isCompleted
+  }
+}
+
+{
+  "title": "hello there",
+  "isCompleted": false
+}
+___
+mutation UpdateTicket($id: ID!, $title: String!) {
+  updateTicket(id: $id, title: $title){
+    id
+    title
+  }
+}
+
+{
+  "id": 1,
+  "title": "babirrrrgr"
+}
+___
+mutation ToggleTicket($id: ID!, $isCompleted: Boolean!) {
+  toggleTicket(id: $id, isCompleted: $isCompleted){
+    id
+    title
+    isCompleted
+  }
+}
+
+{
+  "id": 1,
+  "isCompleted": true
+}
+___
+mutation RemoveTicket($id: ID!) {
+  removeTicket(id: $id)
+}
+
+{
+  "id": 3
+}
+___
+mutation AddChildrenToTicket($parentId: ID!, $childrenIds: [ID!]!) {
+  addChildrenToTicket(parentId: $parentId, childrenIds: $childrenIds) {
+    id
+    title
+    children {
+      id
+      title
+    }
+  }
+}
+
+{
+  "parentId": 2,
+  "childrenIds": [7,9]
+}
+___
+mutation SetParentOfTicket($parentId: ID!, $childId: ID!) {
+  setParentOfTicket(parentId: $parentId, childId: $childId) {
+    id
+    title
+    children {
+      id
+      title
+    }
+  }
+}
+
+{
+  "parentId": 8,
+  "childId": 5
+}
+___
+mutation RemoveParentFromTicket($id: ID!) {
+  removeParentFromTicket(id: $id) {
+    id
+    title
+    children {
+      id
+      title
+    }
+  }
+}
+
+{
+  "id": 9
+}
