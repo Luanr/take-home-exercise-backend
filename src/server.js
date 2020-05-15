@@ -147,6 +147,24 @@ const resolvers = {
           nested: true 
       }]};
       return models.Ticket.findByPk(args.parentId,childrenOption);
+    },
+    removeParentFromTicket: async (root, args, context) => {
+      let value = {
+        parentId: null
+      };
+
+      let condition = {
+        where: {id: args.id}
+      };
+      
+      await models.Ticket.update(value,condition);
+
+      let childrenOption = {
+        include: [{ 
+          all: true, 
+          nested: true 
+      }]};
+      return models.Ticket.findByPk(args.id,childrenOption);
     }
   }
 };
