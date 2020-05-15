@@ -146,7 +146,7 @@ const resolvers = {
           all: true, 
           nested: true 
       }]};
-      return models.Ticket.findByPk(args.parentId,childrenOption);
+      return models.Ticket.findByPk(args.child,childrenOption);
     },
     removeParentFromTicket: async (root, args, context) => {
       let value = {
