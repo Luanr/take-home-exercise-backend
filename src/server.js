@@ -100,6 +100,13 @@ const resolvers = {
       };
       await models.Ticket.update(value,condition);
       return models.Ticket.findByPk(args.id);
+    },
+    removeTicket: async (root, args, context) => {
+      let condition = {
+        where: {id: args.id}
+      };
+      await models.Ticket.destroy(condition);
+      return true;
     }
   }
 };
