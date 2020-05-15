@@ -107,6 +107,28 @@ const resolvers = {
       };
       await models.Ticket.destroy(condition);
       return true;
+    },
+    addChildrenToTicket: async (root, args, context) => {
+      let value = {
+        parentId: args.parentId
+      };
+
+      let childrenIds = args.childrenIds;
+
+      for (let i = 0; i < childrenIds.length; i++) {
+        let child = Number(childrenIds[i]);
+        let condition = {
+          where: {id: child}
+        };
+        await models.Ticket.update(value,condition);
+      }
+
+      let childrenOption = {
+        include: [{ 
+          all: true, 
+          nested: true 
+      }]};
+      return models.Ticket.findByPk(args.parentId,childrenOption);
     }
   }
 };
